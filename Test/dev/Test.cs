@@ -43,7 +43,7 @@ namespace Test
         [Opus.Core.DependentModules]
         Opus.Core.TypeArray dependencies = new Opus.Core.TypeArray(
             typeof(WindowsSDK.WindowsSDK),
-            typeof(Breakpad.BreakpadStaticLibrary)
+            typeof(Breakpad.BreakpadClientStaticLibrary)
         );
     }
 }

@@ -66,7 +66,7 @@ bool BreakpadMinidumpCallback(const wchar_t* dump_path,
 } // anonymous namespace
 
 CrashHandler::Parameters::Parameters(const int argc, char **argv)
-: _argc(argc), _argv(argv), _minidumpDir(L"c:\temp"), _forceInProcess(false)
+: _argc(argc), _argv(argv), _forceInProcess(false)
 {
 }
 
