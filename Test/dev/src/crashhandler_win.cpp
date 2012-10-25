@@ -1,9 +1,8 @@
 #include "crashhandler.h"
+#include "pipename_win.h"
 #include "client/windows/handler/exception_handler.h"
 
 #include <iostream>
-
-#define BREAKPAD_PIPE_NAME L"\\\\.\\pipe\\BreakpadTest"
 
 namespace
 {
