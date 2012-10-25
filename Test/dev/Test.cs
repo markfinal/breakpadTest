@@ -5,6 +5,8 @@ namespace Test
     {
         public ConsoleTest()
         {
+            this.headers.Include(this, "src", "*.h");
+
             this.UpdateOptions += new Opus.Core.UpdateOptionCollectionDelegate(ConsoleTest_UpdateOptions);
         }
 
@@ -26,13 +28,22 @@ namespace Test
             {
                 C.ICCompilerOptions compilerOptions = module.Options as C.ICCompilerOptions;
                 compilerOptions.IgnoreStandardIncludePaths = false;
+
+                C.ICPlusPlusCompilerOptions cxxCompilerOptions = module.Options as C.ICPlusPlusCompilerOptions;
+                cxxCompilerOptions.ExceptionHandler = C.CPlusPlus.EExceptionHandler.Asynchronous;
             }
         }
 
         [Opus.Core.SourceFiles]
         Source source = new Source();
 
-        [Opus.Core.RequiredModules]
-        Opus.Core.TypeArray dependencies = new Opus.Core.TypeArray(typeof(WindowsSDK.WindowsSDK));
+        [C.HeaderFiles]
+        Opus.Core.FileCollection headers = new Opus.Core.FileCollection();
+
+        [Opus.Core.DependentModules]
+        Opus.Core.TypeArray dependencies = new Opus.Core.TypeArray(
+            typeof(WindowsSDK.WindowsSDK),
+            typeof(Breakpad.BreakpadStaticLibrary)
+        );
     }
 }
