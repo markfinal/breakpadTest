@@ -25,15 +25,23 @@ int main(int argc, char* argv[])
 
     ::Sleep(5000);
 
-    std::cout << "Initiating crash..." << std::endl;
+    int result = 0;
+    try
+    {
+        std::cout << "Initiating crash..." << std::endl;
 
 #if 1
-    int result = CrashAndBurn(0);
+        result = CrashAndBurn(0);
 #else
-    *((int*)(0)) = 3;
+        *((int*)(0)) = 3;
 #endif
 
-    std::cout << "Finished..." << std::endl;
+        std::cout << "Finished..." << std::endl;
+    }
+    catch (...)
+    {
+        std::cout << "Exception..." << std::endl;
+    }
 
     return result;
 }
