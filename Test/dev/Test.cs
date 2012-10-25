@@ -15,7 +15,7 @@ namespace Test
         }
     }
 
-    class CrashServer : C.Application
+    class CrashServer : C.WindowsApplication
     {
         public CrashServer()
         {
@@ -54,6 +54,11 @@ namespace Test
         Opus.Core.TypeArray dependents = new Opus.Core.TypeArray(
             typeof(Breakpad.BreakpadServerStaticLibrary),
             typeof(WindowsSDK.WindowsSDK)
+            );
+
+        [C.RequiredLibraries]
+        Opus.Core.StringArray libraries = new Opus.Core.StringArray(
+            "User32.lib" // for DispatchMessage, etc.
             );
     }
 

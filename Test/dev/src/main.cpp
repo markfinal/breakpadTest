@@ -7,8 +7,6 @@ int main(int argc, char* argv[])
     params._oopExecutable = "CrashServer.exe";
     CrashHandler crashHandler(params);
 
-    ::Sleep(1000);
-
     *((int*)(0)) = 3;
 
     return 0;

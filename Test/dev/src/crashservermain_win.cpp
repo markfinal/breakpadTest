@@ -8,7 +8,7 @@
 
 // define this to use a Windows application (linker SUBSYSTEM:Windows) rather than a Console application
 // note that there are some issues killing the process when it is a Console application
-//#define WINDOWS_APP
+#define WINDOWS_APP
 
 namespace
 {
@@ -64,10 +64,10 @@ namespace
 } // anonymous namespace
 
 #ifdef WINDOWS_APP
-int APIENTRY WinMain(::HINSTANCE mFnUnused(instance),
-                     ::HINSTANCE mFnUnused(previous_instance),
-                     ::LPTSTR mFnUnused(command_line),
-                     int mFnUnused(command_show))
+int APIENTRY WinMain(::HINSTANCE /*instance*/,
+                     ::HINSTANCE /*previous_instance*/,
+                     ::LPTSTR /*command_line*/,
+                     int /*command_show*/)
 #else
 int main()
 #endif
