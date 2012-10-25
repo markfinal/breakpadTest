@@ -23,6 +23,10 @@ int main(int argc, char* argv[])
     params._oopExecutable = "CrashServer.exe";
     CrashHandler crashHandler(params);
 
+    ::Sleep(5000);
+
+    std::cout << "Initiating crash..." << std::endl;
+
 #if 1
     int result = CrashAndBurn(0);
 #else

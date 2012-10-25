@@ -6,6 +6,9 @@
 #include <iostream>
 #include <fstream>
 
+#include <io.h>
+#include <fcntl.h>
+
 // define this to use a Windows application (linker SUBSYSTEM:Windows) rather than a Console application
 // note that there are some issues killing the process when it is a Console application
 #define WINDOWS_APP
@@ -72,6 +75,20 @@ int APIENTRY WinMain(::HINSTANCE /*instance*/,
 int main()
 #endif
 {
+    {
+        int hCrt;
+        FILE *hf;
+
+        AllocConsole();
+        hCrt = _open_osfhandle(
+                (long) GetStdHandle(STD_OUTPUT_HANDLE),
+                _O_TEXT
+            );
+        hf = _fdopen( hCrt, "w" );
+        *stdout = *hf;
+        /*i = */setvbuf( stdout, NULL, _IONBF, 0 );
+    }
+
   const wchar_t *pipeName = BREAKPAD_PIPE_NAME;
   const ::LPSECURITY_ATTRIBUTES securityAttributes = NULL;
   void* connect_context = 0;
