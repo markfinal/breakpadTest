@@ -110,6 +110,14 @@ bool BreakpadMinidumpCallback(const wchar_t* dump_path,
 CrashHandler::Parameters::Parameters(const int argc, char **argv)
 : _argc(argc), _argv(argv), _forceInProcess(false)
 {
+    for (int i = 0; i < argc; ++i)
+    {
+        std::string command(argv[i]);
+        if (command == "--inProcess")
+        {
+            this->_forceInProcess = true;
+        }
+    }
 }
 
 CrashHandler::CrashHandler(const Parameters &params)

@@ -21,7 +21,6 @@ int main(int argc, char* argv[])
     CrashHandler::Parameters params(argc, argv);
     params._minidumpDir = L"c:\\temp";
     params._oopExecutable = "CrashServer.exe";
-    //params._forceInProcess = true;
     CrashHandler crashHandler(params);
 
 #if 1
