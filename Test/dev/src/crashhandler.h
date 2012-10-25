@@ -2,6 +2,14 @@
 #define CRASHHANDLER_H
 
 #include <string>
+#include <Windows.h>
+
+namespace google_breakpad
+{
+
+class ExceptionHandler;
+
+} // namespace google_breakpad
 
 class CrashHandler
 {
@@ -14,6 +22,7 @@ public:
         char **_argv;
         std::wstring _minidumpDir;
         bool _forceInProcess;
+        std::string _oopExecutable;
     };
 
     explicit CrashHandler(const Parameters &);
@@ -23,6 +32,10 @@ public:
 
 private:
     CrashHandler(const CrashHandler &);
+
+private:
+    ::HANDLE _serverHandle;
+    google_breakpad::ExceptionHandler *_exceptionHandler;
 };
 
 #endif // CRASHHANDLER_H
