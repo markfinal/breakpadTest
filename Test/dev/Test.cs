@@ -6,7 +6,14 @@ namespace Test
     class GlobalOptionOverride : Opus.Core.IGlobalOptionCollectionOverride
     {
         public void OverrideOptions(Opus.Core.BaseOptionCollection optionCollection, Opus.Core.Target target)
-        {
+        {  
+            VisualCCommon.ICCompilerOptions vcCompilerInterface = optionCollection as VisualCCommon.ICCompilerOptions;
+            if (null != vcCompilerInterface)
+            {
+                //vcCompilerInterface.BasicRuntimeChecks = VisualCCommon.EBasicRuntimeChecks.StackFrameAndUninitializedVariables;
+                vcCompilerInterface.BasicRuntimeChecks = VisualCCommon.EBasicRuntimeChecks.None;
+            }
+
             C.LinkerOptionCollection linkOptions = optionCollection as C.LinkerOptionCollection;
             if (null != linkOptions)
             {
@@ -111,6 +118,34 @@ namespace Test
         [C.RequiredLibraries]
         Opus.Core.StringArray libraries = new Opus.Core.StringArray(
             "User32.lib" // for WaitForInputIdle
+            );
+    }
+
+    class CrashPlugin : C.DynamicLibrary
+    {
+        public CrashPlugin()
+        {
+            this.headers.Include(this, "src", "crashplugin.h");
+            this.headers.Include(this, "src", "plugininterface.h");
+        }
+
+        class Source : C.CPlusPlus.ObjectFileCollection
+        {
+            public Source()
+            {
+                this.Include(this, "src", "crashplugin.cpp");
+            }
+        }
+
+        [Opus.Core.SourceFiles]
+        Source source = new Source();
+
+        [C.HeaderFiles]
+        Opus.Core.FileCollection headers = new Opus.Core.FileCollection();
+
+        [C.RequiredLibraries]
+        Opus.Core.StringArray libraries = new Opus.Core.StringArray(
+            "Kernel32.lib" // for Sleep etc
             );
     }
 }
