@@ -54,8 +54,35 @@ private:
     GetInterfaceFn _getInterfaceFn;
 };
 
+enum Mode
+{
+    MODE_INVALID = -1,
+    MODE_NULLPOINTER = 0,
+    MODE_STACKOVERFLOW = 1,
+};
+
 int main(int argc, char* argv[])
 {
+    Mode mode = MODE_INVALID;
+    for (int i = 0; i < argc; ++i)
+    {
+        if (std::string(argv[i]) == "--nullpointer")
+        {
+            mode = MODE_NULLPOINTER;
+            break;
+        }
+        else if (std::string(argv[i]) == "--stackoverflow")
+        {
+            mode = MODE_STACKOVERFLOW;
+            break;
+        }
+    }
+    if (MODE_INVALID == mode)
+    {
+        std::cerr << "No crash mode has been set" << std::endl;
+        return -1;
+    }
+
     CrashHandler::Parameters params(argc, argv);
     params._minidumpDir = L"c:\\temp";
     params._oopExecutable = "CrashServer.exe";
@@ -70,13 +97,16 @@ int main(int argc, char* argv[])
     std::cout << "Initiating crash..." << std::endl;
 
 #if 1
-    instance->Execute(1);
+    instance->Execute(mode);
 #else
-#if 1
-    result = CrashAndBurn(0);
-#else
-    *((int*)(0)) = 3;
-#endif
+    if (MODE_NULLPOINTER == mode)
+    {
+        *((int*)(0)) = 3;
+    }
+    else if (MODE_STACKOVERFLOW == mode)
+    {
+        result = CrashAndBurn(0);
+    }
 #endif
 
     std::cout << "Finished..." << std::endl;
