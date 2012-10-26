@@ -7,6 +7,12 @@ namespace Test
     {
         public void OverrideOptions(Opus.Core.BaseOptionCollection optionCollection, Opus.Core.Target target)
         {
+            VisualCCommon.ICCompilerOptions vcCompilerInterface = optionCollection as VisualCCommon.ICCompilerOptions;
+            if (null != vcCompilerInterface)
+            {
+                vcCompilerInterface.BasicRuntimeChecks = VisualCCommon.EBasicRuntimeChecks.StackFrameAndUninitializedVariables;
+            }
+
             C.LinkerOptionCollection linkOptions = optionCollection as C.LinkerOptionCollection;
             if (null != linkOptions)
             {
