@@ -113,4 +113,32 @@ namespace Test
             "User32.lib" // for WaitForInputIdle
             );
     }
+
+    class CrashPlugin : C.DynamicLibrary
+    {
+        public CrashPlugin()
+        {
+            this.headers.Include(this, "src", "crashplugin.h");
+            this.headers.Include(this, "src", "plugininterface.h");
+        }
+
+        class Source : C.CPlusPlus.ObjectFileCollection
+        {
+            public Source()
+            {
+                this.Include(this, "src", "crashplugin.cpp");
+            }
+        }
+
+        [Opus.Core.SourceFiles]
+        Source source = new Source();
+
+        [C.HeaderFiles]
+        Opus.Core.FileCollection headers = new Opus.Core.FileCollection();
+
+        [C.RequiredLibraries]
+        Opus.Core.StringArray libraries = new Opus.Core.StringArray(
+            "Kernel32.lib" // for Sleep etc
+            );
+    }
 }
