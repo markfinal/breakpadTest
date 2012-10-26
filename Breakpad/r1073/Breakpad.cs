@@ -28,14 +28,23 @@ namespace Breakpad
                 compilerOptions.WarningsAsErrors = false;
                 compilerOptions.IncludePaths.Include(this, "src", "src");
 
-                // for MSVC2008
-                compilerOptions.Defines.Add("STATUS_INVALID_PARAMETER=0xC000000DL");
+                // VS2010 has this, but nothing else
+                if (Opus.Core.State.PackageInfo["VisualC"].Version != "10.0")
+                {
+                    compilerOptions.Defines.Add("STATUS_INVALID_PARAMETER=0xC000000DL");
+                }
 
                 C.ICPlusPlusCompilerOptions cxxCompilerOptions = module.Options as C.ICPlusPlusCompilerOptions;
                 cxxCompilerOptions.ExceptionHandler = C.CPlusPlus.EExceptionHandler.Asynchronous;
 
                 C.IToolchainOptions toolchainOptions = compilerOptions.ToolchainOptionCollection as C.IToolchainOptions;
                 toolchainOptions.CharacterSet = C.ECharacterSet.Unicode;
+                // TODO: not sure why these are not passed through
+                if (Opus.Core.State.PackageInfo["VisualC"].Version == "10.0")
+                {
+                    compilerOptions.Defines.Add("UNICODE");
+                    compilerOptions.Defines.Add("_UNICODE");
+                }
             }
 
             [C.ExportCompilerOptionsDelegate]
@@ -88,6 +97,12 @@ namespace Breakpad
 
                 C.IToolchainOptions toolchainOptions = compilerOptions.ToolchainOptionCollection as C.IToolchainOptions;
                 toolchainOptions.CharacterSet = C.ECharacterSet.Unicode;
+                // TODO: not sure why these are not passed through
+                if (Opus.Core.State.PackageInfo["VisualC"].Version == "10.0")
+                {
+                    compilerOptions.Defines.Add("UNICODE");
+                    compilerOptions.Defines.Add("_UNICODE");
+                }
             }
 
             [C.ExportCompilerOptionsDelegate]
