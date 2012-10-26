@@ -61,6 +61,23 @@ enum Mode
     MODE_STACKOVERFLOW = 1,
 };
 
+std::string ModeDescription(Mode m)
+{
+    switch (m)
+    {
+    case MODE_INVALID:
+        return "Invalid mode";
+        
+    case MODE_NULLPOINTER:
+        return "Null pointer";
+
+    case MODE_STACKOVERFLOW:
+        return "Stack overflow";
+    }
+
+    return "";
+}
+
 int main(int argc, char* argv[])
 {
     bool usePlugin = false;
@@ -99,13 +116,13 @@ int main(int argc, char* argv[])
         LoadPlugin plugin("CrashPlugin.dll");
         IPlugin *instance = plugin.GetInterface();
 
-        std::cout << "Initiating plugin crash..." << std::endl;
+        std::cout << "Initiating plugin crash for " << ModeDescription(mode) << std::endl;
 
         instance->Execute(mode);
     }
     else
     {
-        std::cout << "Initiating main executable plugin crash..." << std::endl;
+        std::cout << "Initiating main executable crash for " << ModeDescription(mode) << std::endl;
 
         if (MODE_NULLPOINTER == mode)
         {
