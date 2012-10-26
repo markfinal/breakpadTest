@@ -6,7 +6,7 @@
 class CrashPlugin : public IPlugin
 {
 public:
-    virtual void DoStuff();
+    virtual void Execute(int);
 };
 
 #endif // CRASHPLUGIN_H

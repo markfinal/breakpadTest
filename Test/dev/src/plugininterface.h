@@ -4,7 +4,7 @@
 class IPlugin
 {
 public:
-    virtual void DoStuff() = 0;
+    virtual void Execute(int) = 0;
 };
 
 typedef IPlugin* (*GetInterfaceFn)();

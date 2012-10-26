@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
     std::cout << "Initiating crash..." << std::endl;
 
 #if 1
-    instance->DoStuff();
+    instance->Execute(1);
 #else
 #if 1
     result = CrashAndBurn(0);
