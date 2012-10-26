@@ -63,18 +63,21 @@ enum Mode
 
 int main(int argc, char* argv[])
 {
+    bool usePlugin = false;
     Mode mode = MODE_INVALID;
     for (int i = 0; i < argc; ++i)
     {
         if (std::string(argv[i]) == "--nullpointer")
         {
             mode = MODE_NULLPOINTER;
-            break;
         }
         else if (std::string(argv[i]) == "--stackoverflow")
         {
             mode = MODE_STACKOVERFLOW;
-            break;
+        }
+        else if (std::string(argv[i]) == "--plugin")
+        {
+            usePlugin = true;
         }
     }
     if (MODE_INVALID == mode)
@@ -90,24 +93,29 @@ int main(int argc, char* argv[])
 
     int result = 0;
 
-    std::cout << "Loading plugin..." << std::endl;
-    LoadPlugin plugin("CrashPlugin.dll");
-    IPlugin *instance = plugin.GetInterface();
-
-    std::cout << "Initiating crash..." << std::endl;
-
-#if 1
-    instance->Execute(mode);
-#else
-    if (MODE_NULLPOINTER == mode)
+    if (usePlugin)
     {
-        *((int*)(0)) = 3;
+        std::cout << "Loading plugin..." << std::endl;
+        LoadPlugin plugin("CrashPlugin.dll");
+        IPlugin *instance = plugin.GetInterface();
+
+        std::cout << "Initiating plugin crash..." << std::endl;
+
+        instance->Execute(mode);
     }
-    else if (MODE_STACKOVERFLOW == mode)
+    else
     {
-        result = CrashAndBurn(0);
+        std::cout << "Initiating main executable plugin crash..." << std::endl;
+
+        if (MODE_NULLPOINTER == mode)
+        {
+            *((int*)(0)) = 3;
+        }
+        else if (MODE_STACKOVERFLOW == mode)
+        {
+            result = CrashAndBurn(0);
+        }
     }
-#endif
 
     std::cout << "Finished..." << std::endl;
 
