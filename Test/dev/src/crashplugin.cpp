@@ -6,6 +6,7 @@ namespace
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning( disable : 4717 ) // warning C4717: '`anonymous namespace'::StackOverflow' : recursive on all control paths, function will cause runtime stack overflow
+#pragma warning( disable : 4718 ) // warning C4718: '`anonymous namespace'::StackOverflow' : recursive call has no side effects, deleting
 #endif
  
 int StackOverflow(int x)
