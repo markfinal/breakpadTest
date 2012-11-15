@@ -147,5 +147,10 @@ namespace Test
         Opus.Core.StringArray libraries = new Opus.Core.StringArray(
             "Kernel32.lib" // for Sleep etc
             );
+
+        [Opus.Core.DependentModules]
+        Opus.Core.TypeArray dependents = new Opus.Core.TypeArray(
+            typeof(WindowsSDK.WindowsSDK)
+            );
     }
 }
