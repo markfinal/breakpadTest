@@ -37,8 +37,11 @@ namespace Breakpad
                 C.ICPlusPlusCompilerOptions cxxCompilerOptions = module.Options as C.ICPlusPlusCompilerOptions;
                 cxxCompilerOptions.ExceptionHandler = C.CPlusPlus.EExceptionHandler.Asynchronous;
 
+#if true
+#else
                 C.IToolchainOptions toolchainOptions = compilerOptions.ToolchainOptionCollection as C.IToolchainOptions;
                 toolchainOptions.CharacterSet = C.ECharacterSet.Unicode;
+#endif
                 // TODO: not sure why these are not passed through
                 if (Opus.Core.State.PackageInfo["VisualC"].Version == "10.0")
                 {
@@ -95,8 +98,11 @@ namespace Breakpad
                 C.ICPlusPlusCompilerOptions cxxCompilerOptions = module.Options as C.ICPlusPlusCompilerOptions;
                 cxxCompilerOptions.ExceptionHandler = C.CPlusPlus.EExceptionHandler.Asynchronous;
 
+#if true
+#else
                 C.IToolchainOptions toolchainOptions = compilerOptions.ToolchainOptionCollection as C.IToolchainOptions;
                 toolchainOptions.CharacterSet = C.ECharacterSet.Unicode;
+#endif
                 // TODO: not sure why these are not passed through
                 if (Opus.Core.State.PackageInfo["VisualC"].Version == "10.0")
                 {
