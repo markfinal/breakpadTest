@@ -35,7 +35,7 @@ namespace Test
             linkerOptions.DoNotAutoIncludeStandardLibraries = false;
         }
 
-        class Source : C.CPlusPlus.ObjectFileCollection
+        class Source : C.Cxx.ObjectFileCollection
         {
             public Source()
             {
@@ -49,8 +49,8 @@ namespace Test
                 C.ICCompilerOptions compilerOptions = module.Options as C.ICCompilerOptions;
                 compilerOptions.IgnoreStandardIncludePaths = false;
 
-                C.ICPlusPlusCompilerOptions cxxCompilerOptions = module.Options as C.ICPlusPlusCompilerOptions;
-                cxxCompilerOptions.ExceptionHandler = C.CPlusPlus.EExceptionHandler.Asynchronous;
+                C.ICxxCompilerOptions cxxCompilerOptions = module.Options as C.ICxxCompilerOptions;
+                cxxCompilerOptions.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
             }
         }
 
@@ -84,7 +84,7 @@ namespace Test
             linkerOptions.DoNotAutoIncludeStandardLibraries = false;
         }
 
-        class Source : C.CPlusPlus.ObjectFileCollection
+        class Source : C.Cxx.ObjectFileCollection
         {
             public Source()
             {
@@ -98,8 +98,8 @@ namespace Test
                 C.ICCompilerOptions compilerOptions = module.Options as C.ICCompilerOptions;
                 compilerOptions.IgnoreStandardIncludePaths = false;
 
-                C.ICPlusPlusCompilerOptions cxxCompilerOptions = module.Options as C.ICPlusPlusCompilerOptions;
-                cxxCompilerOptions.ExceptionHandler = C.CPlusPlus.EExceptionHandler.Asynchronous;
+                C.ICxxCompilerOptions cxxCompilerOptions = module.Options as C.ICxxCompilerOptions;
+                cxxCompilerOptions.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
             }
         }
 
@@ -129,7 +129,7 @@ namespace Test
             this.headers.Include(this, "src", "plugininterface.h");
         }
 
-        class Source : C.CPlusPlus.ObjectFileCollection
+        class Source : C.Cxx.ObjectFileCollection
         {
             public Source()
             {

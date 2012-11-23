@@ -10,7 +10,7 @@ namespace Breakpad
             this.headers.Include(this, "src", "src", "client", "windows", "handler", "*.h");
         }
 
-        class SourceFiles : C.CPlusPlus.ObjectFileCollection
+        class SourceFiles : C.Cxx.ObjectFileCollection
         {
             public SourceFiles()
             {
@@ -34,8 +34,8 @@ namespace Breakpad
                     compilerOptions.Defines.Add("STATUS_INVALID_PARAMETER=0xC000000DL");
                 }
 
-                C.ICPlusPlusCompilerOptions cxxCompilerOptions = module.Options as C.ICPlusPlusCompilerOptions;
-                cxxCompilerOptions.ExceptionHandler = C.CPlusPlus.EExceptionHandler.Asynchronous;
+                C.ICxxCompilerOptions cxxCompilerOptions = module.Options as C.ICxxCompilerOptions;
+                cxxCompilerOptions.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
 
 #if true
 #else
@@ -78,7 +78,7 @@ namespace Breakpad
             this.headers.Include(this, "src", "src", "client", "windows", "crash_generation", "*.h");
         }
 
-        class SourceFiles : C.CPlusPlus.ObjectFileCollection
+        class SourceFiles : C.Cxx.ObjectFileCollection
         {
             public SourceFiles()
             {
@@ -95,8 +95,8 @@ namespace Breakpad
             {
                 C.ICCompilerOptions compilerOptions = module.Options as C.ICCompilerOptions;
 
-                C.ICPlusPlusCompilerOptions cxxCompilerOptions = module.Options as C.ICPlusPlusCompilerOptions;
-                cxxCompilerOptions.ExceptionHandler = C.CPlusPlus.EExceptionHandler.Asynchronous;
+                C.ICxxCompilerOptions cxxCompilerOptions = module.Options as C.ICxxCompilerOptions;
+                cxxCompilerOptions.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
 
 #if true
 #else
