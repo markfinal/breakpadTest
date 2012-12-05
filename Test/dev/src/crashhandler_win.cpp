@@ -11,10 +11,40 @@ bool BreakpadFilter(void* context, EXCEPTION_POINTERS* exinfo, MDRawAssertionInf
   // return true - allow Breakpad to write a minidump
   // return false - don't do anything, but allow another exception handler a chance to jump in
 
+#if 1
+    (void)context;
+    (void)exinfo;
+    (void)assertion;
+#else
   std::cout << "Breakpad client filter called" << std::endl;
-  std::cout << "\tcontext   = " << context << std::endl;
-  std::cout << "\texinfo    = " << exinfo << std::endl;
-  std::cout << "\tassertion = " << assertion << std::endl;
+  std::cout << "\tcontext   = ";
+  if (0 != context)
+  {
+      std::cout << context << std::endl;
+  }
+  else
+  {
+      std::cout << "no context" << std::endl;
+  }
+  std::cout << "\texinfo    = ";
+  if (0 != exinfo)
+  {
+      std::cout << exinfo << std::endl;
+  }
+  else
+  {
+      std::cout << "no exception pointers" << std::endl;
+  }
+  std::cout << "\tassertion = ";
+  if (0 != assertion)
+  {
+      std::cout << assertion << std::endl;
+  }
+  else
+  {
+      std::cout << "no assertion info" << std::endl;
+  }
+#endif
   return true;
 }
 
@@ -28,6 +58,14 @@ bool BreakpadMinidumpCallback(const wchar_t* dump_path,
   // return true if fully handled
   // return false, treat as unhandled and pass onto another handler, eventually reporting to the system
 
+#if 1
+    (void)dump_path;
+    (void)minidump_id;
+    (void)context;
+    (void)exinfo;
+    (void)assertion;
+    (void)succeeded;
+#else
   std::cout << "Breakpad client minidump callback called" << std::endl;
   if (0 == dump_path) {
     std::cout << "\tOut of process server detected" << std::endl;
@@ -60,7 +98,8 @@ bool BreakpadMinidumpCallback(const wchar_t* dump_path,
   std::cout << "\texinfo        = " << exinfo << std::endl;
   std::cout << "\tassertion     = " << assertion << std::endl;
   std::cout << "\tsucceeded     = " << succeeded << std::endl;
-  return true;
+#endif
+  return succeeded;
 }
 
 ::HANDLE StartCrashReportingProcess(const std::string &executablePath)
